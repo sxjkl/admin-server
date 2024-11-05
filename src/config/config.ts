@@ -14,7 +14,8 @@ export default () => ({
     port: parseInt(process.env.MYSQL_PORT, 10) || 3306,
     username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+    database: process.env.MYSQL_DATABASE,
+    synchronize: Boolean(process.env.MYSQL_SYNCHRONIZE) || false
   },
   redis: {
     host: process.env.REDIS_HOST,

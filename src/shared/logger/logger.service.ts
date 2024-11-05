@@ -1,4 +1,4 @@
-import Config from '@/config/config'
+import Config from '@config/config'
 import { ConsoleLogger, ConsoleLoggerOptions, Injectable } from '@nestjs/common'
 import { createLogger, format, transports, type Logger as WinstonLogger } from 'winston'
 import { config } from 'winston'

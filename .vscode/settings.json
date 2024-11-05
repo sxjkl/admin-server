@@ -24,5 +24,5 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "cSpell.words": ["antfu", "Cacheable", "commitlint", "fastify", "nestjs", "songkeys", "systeminformation", "tinyint", "typeorm", "websockets"]
+  "cSpell.words": ["antfu", "Cacheable", "commitlint", "fastify", "nestjs", "songkeys", "systeminformation", "tinyint", "typeorm", "websockets", "liaoliaots"]
 }

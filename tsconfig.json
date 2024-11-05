@@ -20,7 +20,12 @@
     "baseUrl": "./",
     "module": "commonjs",
     "paths": {
-      "@/*": ["src/*"]
+      "@common/*": ["src/common/*"],
+      "@config/*": ["src/config/*"],
+      "@global/*": ["src/global/*"],
+      "@shared/*": ["src/shared/*"],
+      "@utils/*": ["src/utils/*"],
+      "@entities/*": ["src/entities/*"]
     }
   },
   "exclude": ["node_modules", "scripts", "dist"]
