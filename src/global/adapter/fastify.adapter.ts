@@ -1,4 +1,4 @@
-import FastifyCookie from '@fastify/cookie'
+import fastifyCookie from '@fastify/cookie'
 import fastifyMultipart from '@fastify/multipart'
 import { FastifyAdapter } from '@nestjs/platform-fastify'
 
@@ -6,7 +6,7 @@ const app: FastifyAdapter = new FastifyAdapter({
   trustProxy: true,
   logger: false
 })
-app.register(fastifyMultipart, {
+app.register(fastifyMultipart as any, {
   limits: {
     fields: 10, // Max number of non-file fields
     fileSize: 1024 * 1024 * 6, // limit size 6M
@@ -14,7 +14,7 @@ app.register(fastifyMultipart, {
   }
 })
 
-app.register(FastifyCookie, {
+app.register(fastifyCookie as any, {
   secret: 'secret'
 })
 
@@ -24,8 +24,6 @@ app.getInstance().addHook('onRequest', (req, reply, done) => {
   // 根据 logsId 生成方式，这里可以做一些处理
 
   const { url } = req
-
-  req.logsId = createLogsId(url)
 
   if (url.endsWith('.php')) {
     reply.raw.statusMessage = 'Eh. PHP is not support on this machine. Yep, I also think PHP is bestest programming language. But for me it is beyond my reach.'

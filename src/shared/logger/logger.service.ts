@@ -4,7 +4,7 @@ import { createLogger, format, transports, type Logger as WinstonLogger } from '
 import { config } from 'winston'
 import 'winston-daily-rotate-file'
 import { ElasticsearchTransport } from 'winston-elasticsearch'
-import uuid from 'uuid'
+import { v4 as uuidV4 } from 'uuid'
 
 export enum LogLevel {
   error = 'error',
@@ -31,7 +31,7 @@ export class LoggerService extends ConsoleLogger {
     return Config().logger.maxFiles
   }
   protected initWinston(): void {
-    const spanTracerId = uuid.v4()
+    const spanTracerId = uuidV4()
     const indexPrefix = 'nest-admin-' + process.env.NODE_ENV
     const elasticTransport = (spanTracerId, indexPrefix) => {
       const esTransport = {
