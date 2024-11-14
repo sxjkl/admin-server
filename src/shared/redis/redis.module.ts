@@ -3,8 +3,7 @@ import { Global, Module, Provider } from '@nestjs/common'
 import { REDIS_PUBSUB } from './redis.constant'
 import Config from '@config/config'
 import { RedisSubPub } from './redis-subpub'
-import { CacheModule, CacheStore } from '@nestjs/cache-manager'
-import { ConfigModule } from '@nestjs/config'
+import { CacheModule } from '@nestjs/cache-manager'
 import { redisStore } from 'cache-manager-ioredis-yet'
 import { RedisModule as NestRedisModule } from '@liaoliaots/nestjs-redis'
 const config = Config()
@@ -25,13 +24,11 @@ const providers: Provider[] = [
 @Global()
 @Module({
   imports: [
-    // cache-manager
     CacheModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory() {
+      useFactory: () => {
         return {
           isGlobal: true,
-          store: redisStore() as unknown as CacheStore,
+          store: redisStore,
           isCacheableValue: () => true,
           port: config.redis.port,
           host: config.redis.host,
@@ -44,11 +41,12 @@ const providers: Provider[] = [
       useFactory() {
         return {
           readyLog: true,
-          closeClient: true,
-          port: config.redis.port,
-          host: config.redis.host,
-          password: config.redis.password,
-          db: config.redis.db
+          config: {
+            port: config.redis.port,
+            host: config.redis.host,
+            password: config.redis.password,
+            db: config.redis.db
+          }
         }
       }
     })

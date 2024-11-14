@@ -35,7 +35,7 @@ import path from 'path'
         // 解析请求头中的 Accept-Language 设置
         AcceptLanguageResolver
       ],
-      typesOutputPath: path.join(__dirname, '../generated/i18n.generated.ts')
+      typesOutputPath: path.join(__dirname, '../../src/generated/i18n.generated.ts')
     })
   ],
   exports: [RedisModule, HttpModule]

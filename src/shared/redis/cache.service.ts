@@ -1,4 +1,4 @@
-import { RedisIoAdapterKey } from '@common/adapters/socket.adapter'
+import { RedisIoAdapterKey } from '@global/adapter/socket.adapter'
 import { API_CACHE_PREFIX } from '@common/constants/cache.constant'
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Inject, Injectable } from '@nestjs/common'

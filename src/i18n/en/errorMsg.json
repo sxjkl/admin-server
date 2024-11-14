@@ -1,3 +1,4 @@
 {
-  "invalidVerificationCode": "验证码填写有误"
+  "invalidVerificationCode": "The verification code is incorrect",
+  "systemError": "System error"
 }

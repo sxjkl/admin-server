@@ -1,30 +1,30 @@
 export default () => ({
-  port: parseInt(process.env.PORT, 10) || 3001,
+  port: 3001,
   jwt: {
-    secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRE
+    secret: 'jklklj1010',
+    expiresIn: '24h'
   },
   initAdmin: {
-    username: process.env.INIT_ADMIN_USERNAME,
-    password: process.env.INIT_ADMIN_PASSWORD
+    username: 'admin',
+    password: 'admin'
   },
   tencent: {},
   database: {
-    host: process.env.MYSQL_HOST,
-    port: parseInt(process.env.MYSQL_PORT, 10) || 3306,
-    username: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    synchronize: Boolean(process.env.MYSQL_SYNCHRONIZE) || false
+    host: '154.201.71.246',
+    port: 3306,
+    username: 'root',
+    password: 'ljk1009.',
+    database: 'admin-server',
+    synchronize: true
   },
   redis: {
-    host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT, 10) || 6379,
-    password: process.env.REDIS_PASSWORD,
-    db: parseInt(process.env.REDIS_DB, 10) || 0
+    host: '154.201.71.246',
+    port: 6379,
+    password: 'ljk1009.',
+    db: 0
   },
   logger: {
-    level: process.env.LOGGER_LEVEL || 'debug',
-    maxFiles: parseInt(process.env.LOGGER_MAX_FILES, 10) || 30
+    level: 'verbose',
+    maxFiles: 30
   }
 })
