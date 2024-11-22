@@ -8,6 +8,9 @@ export type I18nTranslations = {
     "errorMsg": {
         "invalidVerificationCode": string;
         "systemError": string;
+        "timeOutError": string;
+        "sameRequest": string;
+        "reqTimeoutError": string;
     };
 };
 /* prettier-ignore */

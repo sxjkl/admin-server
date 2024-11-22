@@ -1,4 +1,9 @@
 {
   "invalidVerificationCode": "验证码填写有误",
-  "systemError": "系统错误"
+  "systemError": "系统错误",
+  "timeOutError": "相同请求成功后在 60 秒内只能发送一次",
+  "sameRequest": "相同请求正在处理中...",
+  "reqTimeoutError": "请求超时",
+  "userNotFound": "用户不存在",
+  "userInvalidUsernamePassword": "用户名或密码错误"
 }

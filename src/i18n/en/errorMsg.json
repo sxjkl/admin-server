@@ -1,4 +1,9 @@
 {
   "invalidVerificationCode": "The verification code is incorrect",
-  "systemError": "System error"
+  "systemError": "System error",
+  "timeOutError": "The same request can only be sent once within 60 seconds after it is successful",
+  "sameRequest": "The same request is being processed...",
+  "reqTimeoutError": "Request timeout",
+  "userNotFound": "User not found",
+  "userInvalidUsernamePassword": "The username or password is incorrect"
 }

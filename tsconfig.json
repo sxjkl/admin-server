@@ -25,7 +25,10 @@
       "@global/*": ["src/global/*"],
       "@shared/*": ["src/shared/*"],
       "@utils/*": ["src/utils/*"],
-      "@entities/*": ["src/entities/*"]
+      "@entities/*": ["src/entities/*"],
+      "@auth/*": ["src/modules/auth/*"],
+      "@system/*": ["src/modules/system/*"],
+      "@modules/*": ["src/modules/*"]
     }
   },
   "exclude": ["node_modules", "scripts", "dist"]

@@ -1,8 +1,13 @@
 export default () => ({
   port: 3001,
+  name: 'Nest-Admin',
   jwt: {
     secret: 'jklklj1010',
     expiresIn: '24h'
+  },
+  swagger: {
+    enable: true,
+    path: '/api'
   },
   initAdmin: {
     username: 'admin',

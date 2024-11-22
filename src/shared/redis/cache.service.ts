@@ -22,7 +22,7 @@ export class CacheService {
   private get redisClient() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    return this.cache.store.getClient()
+    return this.cache.store.getClient() as Redis
   }
 
   get<T>(key: TCacheKey): TCacheValue<T> {

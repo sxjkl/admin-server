@@ -6,7 +6,8 @@ import config from '@config/config'
 import { LoggerService } from '@shared/logger/logger.service'
 import cluster from 'cluster'
 import { isDev, isMainProcess } from '@utils/env.util'
-import { Logger } from '@nestjs/common'
+import { HttpStatus, Logger, UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
+import { setupSwagger } from './setup-swagger'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, FastifyApp, {
@@ -15,6 +16,25 @@ async function bootstrap() {
   })
   const { port } = config()
   app.useLogger(app.get(LoggerService))
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      transformOptions: { enableImplicitConversion: true },
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      stopAtFirstError: true,
+      exceptionFactory(errors) {
+        return new UnprocessableEntityException(
+          errors.map(e => {
+            const rule = Object.keys(e.constraints!)[0]
+            const msg = e.constraints![rule]
+            return msg
+          })
+        )[0]
+      }
+    })
+  )
+  setupSwagger(app)
   await app.listen(port, '0.0.0.0', async () => {
     const url = await app.getUrl()
     const { pid } = process

@@ -8,6 +8,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter'
 import { isDev } from '@utils/env.util'
 import { AcceptLanguageResolver, CookieResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n'
 import path from 'path'
+import { HelperModule } from './helper/helper.module'
 
 @Global()
 @Module({
@@ -36,8 +37,9 @@ import path from 'path'
         AcceptLanguageResolver
       ],
       typesOutputPath: path.join(__dirname, '../../src/generated/i18n.generated.ts')
-    })
+    }),
+    HelperModule
   ],
-  exports: [RedisModule, HttpModule]
+  exports: [RedisModule, HttpModule, HelperModule]
 })
 export class ShareModule {}
