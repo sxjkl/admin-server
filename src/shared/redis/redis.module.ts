@@ -6,6 +6,7 @@ import { RedisSubPub } from './redis-subpub'
 import { CacheModule } from '@nestjs/cache-manager'
 import { redisStore } from 'cache-manager-ioredis-yet'
 import { RedisModule as NestRedisModule } from '@liaoliaots/nestjs-redis'
+import { RedisPubSubService } from './subpub.service'
 const config = Config()
 const providers: Provider[] = [
   CacheService,
@@ -18,7 +19,8 @@ const providers: Provider[] = [
         password: config.redis.password
       })
     }
-  }
+  },
+  RedisPubSubService
 ]
 
 @Global()
@@ -41,6 +43,7 @@ const providers: Provider[] = [
       useFactory() {
         return {
           readyLog: true,
+          errorLog: true,
           config: {
             port: config.redis.port,
             host: config.redis.host,

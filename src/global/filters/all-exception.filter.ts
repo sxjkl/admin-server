@@ -26,14 +26,16 @@ export class AllExceptionFilter implements ExceptionFilter<Error> {
     const url = req.raw.url!
 
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR
-    let msg = ''
+    let message = ''
     if (exception instanceof SysException) {
       const filed = exception.ErrorMsg
-      msg = i18n.t(filed as keyof I18nTranslations)
+      message = i18n.t(filed as keyof I18nTranslations)
+      this.logger.error(`${message} -> ${url} -> ${exception}`)
     } else {
-      msg = i18n.t('errorMsg.systemError')
+      message = i18n.t('errorMsg.systemError')
+      this.logger.error(`${message} -> ${url} -> ${exception}`)
     }
-    res.status(200).send({ code: exception instanceof SysException ? exception.ErrorCode : 500, msg, ret: -1 })
+    res.status(status).send({ code: exception instanceof SysException ? exception.ErrorCode : 500, message, ret: -1 })
   }
 
   registerCatchAllExceptionsHook() {

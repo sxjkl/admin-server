@@ -9,6 +9,12 @@ export function genCaptchaImgKey(val: string | number) {
 export function genAuthTokenKey(val: string | number) {
   return `${RedisKeys.AUTH_TOKEN_PREFIX}${String(val)}` as const
 }
+/**
+ * 生成 auth refresh token redis key
+ */
+export function genRefreshTokenKey(val: string | number) {
+  return `${RedisKeys.AUTH_REFRESH_TOKEN_PREFIX}${String(val)}` as const
+}
 /** 生成 auth permission redis key */
 export function genAuthPermKey(val: string | number) {
   return `${RedisKeys.AUTH_PERM_PREFIX}${String(val)}` as const

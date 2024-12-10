@@ -6,6 +6,9 @@ import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { AllExceptionFilter } from '@global/filters/all-exception.filter'
 import { TransformInterceptor } from '@global/interceptors/transform.interceptor'
 import { TimeoutInterceptor } from '@global/interceptors/timeout.interceptor'
+import { JwtAuthGuard } from '@global/guard/jwt-auth.guard'
+import { SystemModule } from '@system/system.module'
+import { AuthModule } from '@auth/auth.module'
 
 @Module({
   imports: [
@@ -16,14 +19,17 @@ import { TimeoutInterceptor } from '@global/interceptors/timeout.interceptor'
       })
     }),
     ShareModule,
-    DatabaseModule
+    DatabaseModule,
+    SystemModule,
+    AuthModule
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionFilter },
     { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
     { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
     { provide: APP_INTERCEPTOR, useFactory: () => new TimeoutInterceptor(15 * 1000) },
-    { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor }
+    { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
+    { provide: APP_GUARD, useClass: JwtAuthGuard }
   ]
 })
 export class AppModule {}

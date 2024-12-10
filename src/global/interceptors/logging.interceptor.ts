@@ -9,15 +9,15 @@ export class LoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> {
     const call$ = next.handle()
     const req = context.switchToHttp().getRequest<FastifyRequest>()
-    const content = `${req.method} -> ${req.url}`
+    const content = `${req.method} --> ${req.url}`
     const isSse = req.headers['accept'] === 'text/event-stream'
-    this.logger.debug(`+++ 请求: ${content}`)
+    this.logger.log(`--> 请求: ${content}`)
     const now = Date.now()
 
     return call$.pipe(
       tap(() => {
         if (isSse) return
-        this.logger.debug(`--- 响应: ${content}, 耗时: ${Date.now() - now}ms`)
+        this.logger.log(`--> 响应: ${content}, 耗时: ${Date.now() - now}ms`)
       })
     )
   }

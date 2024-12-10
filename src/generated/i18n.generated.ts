@@ -11,6 +11,14 @@ export type I18nTranslations = {
         "timeOutError": string;
         "sameRequest": string;
         "reqTimeoutError": string;
+        "userNotFound": string;
+        "userInvalidUsernamePassword": string;
+        "userInvalidLoginToken": string;
+        "userInvalidLogin": string;
+        "userNotLogin": string;
+        "userInvalidLoginTokenExpire": string;
+        "userExists": string;
+        "userNoLogin": string;
     };
 };
 /* prettier-ignore */

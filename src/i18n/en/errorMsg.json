@@ -5,5 +5,10 @@
   "sameRequest": "The same request is being processed...",
   "reqTimeoutError": "Request timeout",
   "userNotFound": "User not found",
-  "userInvalidUsernamePassword": "The username or password is incorrect"
+  "userInvalidUsernamePassword": "The username or password is incorrect",
+  "userInvalidLoginToken": "The user credentials have expired, please log in again!",
+  "userInvalidLogin": "Invalid login, please log in again!",
+  "userNotLogin": "Not logged in, please log in again!",
+  "userInvalidLoginTokenExpire": "Login credentials have expired, please refresh credentials",
+  "userExists": "User already exists"
 }

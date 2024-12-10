@@ -1,38 +1,53 @@
-import { RoleEntity } from '@entities/role.entity'
-import { UserEntity } from '@entities/user.entity'
-import { RedisService } from '@liaoliaots/nestjs-redis'
+import { RegisterDto } from '@auth/dto/token.model'
+import { ErrorEnum } from '@common/constants/error-code.constant'
+import { UserEntity } from '@entities/index'
+import { SysException } from '@global/exceptions/sys.exception'
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
-import { QQService } from '@shared/helper/qq.service'
-import Redis from 'ioredis'
-import { EntityManager, Repository } from 'typeorm'
-import { UserStatus } from './constant'
-import { AccountInfo } from './user.model'
+import { md5 } from '@utils/crypto.util'
+import { randomValue } from '@utils/tool.util'
 import { isEmpty } from 'lodash'
-import { SysException } from '@global/exceptions/sys.exception'
-import { ErrorEnum } from '@common/constants/error-code.constant'
+import { EntityManager, Repository } from 'typeorm'
+
 @Injectable()
 export class UserService {
-  private readonly redis: Redis | null
-  constructor(
-    private readonly redisService: RedisService,
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(RoleEntity)
-    private readonly roleRepository: Repository<RoleEntity>,
-    @InjectEntityManager()
-    private readonly entityManager: EntityManager,
-    private readonly qqService: QQService
-  ) {
-    this.redis = this.redisService.getOrThrow()
+  constructor() {}
+  @InjectRepository(UserEntity)
+  userRepository: Repository<UserEntity>
+
+  @InjectEntityManager()
+  private entityManager: EntityManager
+
+  /**
+   * 根据 username 获取用户信息
+   */
+  async getUserByUsername(username: string) {
+    const user = await this.userRepository.findOne({ where: { username } })
+    if (isEmpty(user)) throw new SysException(ErrorEnum.USER_NOT_FOUND)
+    return user
   }
-  async findUserByUserName(username: string): Promise<UserEntity | undefined> {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .where({
+  // 注册
+  async register({ username, password, ...data }: RegisterDto): Promise<void> {
+    const exists = await this.userRepository.findOneBy({ username })
+
+    if (!isEmpty(exists)) throw new SysException(ErrorEnum.USER_EXISTS)
+
+    this.entityManager.transaction(async manager => {
+      const salt = randomValue(32)
+
+      const pwd = md5(`${password ?? 'jkl1009.'}${salt}`)
+
+      const u = manager.create(UserEntity, {
         username,
-        status: UserStatus.Enabled
+        password: pwd,
+        status: 1,
+        pSalt: salt,
+        ...data
       })
-      .getOne()
+
+      const user = await manager.save(u)
+
+      return user
+    })
   }
 }

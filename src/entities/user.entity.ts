@@ -1,46 +1,50 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, Relation } from 'typeorm'
+import { Column, Entity, ManyToMany, OneToMany, Relation, JoinTable } from 'typeorm'
 import { CommonEntity } from './base.entity'
 import { Exclude } from 'class-transformer'
-import { DeptEntity } from './dept.entity'
-import { RoleEntity } from './role.entity'
-import { AccessTokenEntity } from './access-token.entity'
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
+import { AccessTokenEntity } from '@entities/access-token.entity'
+import { RoleEntity } from '@entities/role.entity'
 
-@Entity({ name: 'sys_user' })
+@Entity('sys_user')
 export class UserEntity extends CommonEntity {
-  @Column({ unique: true, comment: '用户名' })
+  @Column({ name: 'username', comment: '用户名', unique: true })
+  @ApiProperty({ description: '用户名' })
   username: string
 
+  @Column({ name: 'password', comment: '密码' })
   @Exclude()
-  @Column()
+  @ApiHideProperty()
   password: string
 
-  @Column({ length: 32 })
-  pSalt: string
-
-  @Column({ nullable: true })
+  @Column({ name: 'nickname', comment: '昵称' })
+  @ApiProperty({ description: '昵称' })
   nickname: string
 
-  @Column({ nullable: true })
+  @Column({ name: 'avatar', comment: '头像' })
+  @ApiProperty({ description: '头像' })
   avatar: string
 
-  @Column({ nullable: true })
-  qq: string
-
-  @Column({ nullable: true })
-  phone: string
-
-  @Column({ nullable: true })
-  remark: string
-
-  @Column({ nullable: true })
+  @Column({ name: 'email', comment: '邮箱', unique: true })
+  @ApiProperty({ description: '邮箱' })
   email: string
 
-  @Column({ type: 'tinyint', nullable: true, default: 1 })
+  @Column({ name: 'phone', comment: '手机号', unique: true })
+  @ApiProperty({ description: '手机号' })
+  phone: string
+
+  @Column({ name: 'status', comment: '状态', type: 'tinyint' })
+  @ApiProperty({ description: '状态' })
   status: number
 
-  @ManyToOne(() => DeptEntity, dept => dept.users)
-  @JoinColumn({ name: 'dept_id' })
-  dept: Relation<DeptEntity>
+  @Column({ name: 'qq', comment: 'qq' })
+  @ApiProperty({ description: 'qq' })
+  qq: string
+
+  @Column({ name: 'p_salt', comment: '加密盐' })
+  pSalt: string
+
+  @OneToMany(() => AccessTokenEntity, accessToken => accessToken.user, { cascade: true })
+  accessTokens: Relation<AccessTokenEntity[]>
 
   @ManyToMany(() => RoleEntity, role => role.users)
   @JoinTable({
@@ -49,9 +53,4 @@ export class UserEntity extends CommonEntity {
     inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' }
   })
   roles: Relation<RoleEntity[]>
-
-  @OneToMany(() => AccessTokenEntity, accessToken => accessToken.user, {
-    cascade: true
-  })
-  accessTokens: Relation<AccessTokenEntity[]>
 }

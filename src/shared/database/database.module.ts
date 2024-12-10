@@ -21,9 +21,9 @@ const providers = [EntityExistConstraint, UniqueConstraint]
           password: opts.password,
           database: opts.database,
           synchronize: opts.synchronize,
-          entities: ['dist/modules/**/*.entity{.ts,.js}'],
-          migrations: ['dist/migrations/*{.ts,.js}'],
-          subscribers: ['dist/modules/**/*.subscriber{.ts,.js}'],
+          entities: ['dist/**/*.entity{.ts,.js}'],
+          migrations: ['dist/migrations/**{.ts,.js}'],
+          subscribers: ['dist/**/*.subscriber{.ts,.js}'],
           autoLoadEntities: true,
           logging: ['error'],
           logger: new TypeORMLogger(['error', 'info', 'log', 'query', 'warn'])

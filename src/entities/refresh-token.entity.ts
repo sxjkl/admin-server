@@ -1,5 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { AccessTokenEntity } from './access-token.entity'
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { AccessTokenEntity } from '@entities/access-token.entity'
 
 @Entity('user_refresh_tokens')
 export class RefreshTokenEntity extends BaseEntity {
@@ -10,11 +10,12 @@ export class RefreshTokenEntity extends BaseEntity {
   value!: string
 
   @Column({ comment: '令牌过期时间' })
-  expire_at!: string
+  expired_at!: Date
 
-  @CreateDateColumn({ comment: '创建时间' })
+  @CreateDateColumn({ comment: '令牌创建时间' })
   created_at!: Date
 
   @OneToOne(() => AccessTokenEntity, accessToken => accessToken.refreshToken, { onDelete: 'CASCADE' })
+  @JoinColumn()
   accessToken!: AccessTokenEntity
 }

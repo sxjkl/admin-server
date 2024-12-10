@@ -8,14 +8,19 @@ import cluster from 'cluster'
 import { isDev, isMainProcess } from '@utils/env.util'
 import { HttpStatus, Logger, UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
 import { setupSwagger } from './setup-swagger'
+import { LoggingInterceptor } from '@global/interceptors/logging.interceptor'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, FastifyApp, {
     bufferLogs: true,
     snapshot: true
   })
-  const { port } = config()
+  const { port, globalPrefix } = config()
   app.useLogger(app.get(LoggerService))
+  app.setGlobalPrefix(globalPrefix)
+  !isDev && app.enableShutdownHooks()
+
+  if (isDev) app.useGlobalInterceptors(new LoggingInterceptor())
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
