@@ -26,14 +26,14 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '登录' })
   @ApiResult({ type: TokenInfo })
-  async login(@Body() dto: LoginDto, @Ip() ip: string, @Headers('user-agent') ua: string, @Response() resp: FastifyReply): Promise<TokenInfo> {
+  async login(@Body() dto: LoginDto, @Ip() ip: string, @Headers('user-agent') ua: string): Promise<TokenInfo> {
     await this.captchaService.checkImgCaptcha(dto.captchaId, dto.verifyCode)
     const token = await this.authService.login(dto.username, dto.password, ip, ua)
     // 把 token 和 refreshToken 种入cookie中
-    resp.setCookie('refreshToken', token.accessToken, {
-      httpOnly: true,
-      secure: true
-    })
+    // resp.setCookie('refreshToken', token.accessToken, {
+    //   httpOnly: true,
+    //   secure: true
+    // })
     return token
   }
 

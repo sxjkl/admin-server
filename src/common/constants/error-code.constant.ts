@@ -10,5 +10,10 @@ export enum ErrorEnum {
   USER_NO_LOGIN = '11005:errorMsg.userNoLogin',
   USER_INVALID_LOGIN_TOKEN_EXPIRE = '11006:errorMsg.userInvalidLoginTokenExpire',
   USER_CAPTCHA_ERROR = '11006:errorMsg.userCaptchaError',
-  USER_EXISTS = '11007:errorMsg.userExists'
+  USER_EXISTS = '11007:errorMsg.userExists',
+
+  // 菜单相关
+  PERMISSION_REQUIRES_PARENT = '12001:errorMsg.permissionRequiresParent',
+  PARENT_MENU_NOT_FOUND = '12002:errorMsg.parentMenuNotFound',
+  ILLEGAL_OPERATION_DIRECTORY_PARENT = '12003:errorMsg.illegalOperationDirectoryParent'
 }

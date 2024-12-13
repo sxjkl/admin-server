@@ -1,3 +1,9 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-26 10:50:31
+ * @LastEditTime: 2024-12-13 18:07:45
+ * @Description: auth module
+ */
 import Config from '@config/config'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -16,10 +22,12 @@ import { AuthController } from './auth.controller'
 import { CaptchaController } from './controller/captcha.controller'
 import { PassportModule } from '@nestjs/passport'
 import { isDev } from '@utils/env.util'
+import { MenuModule } from '@system/menu/menu.module'
+import { AccountController } from './controller/account.controller'
 
 const providers = [AuthService, TokenService, CaptchaService]
 const strategies = [LocalStrategy, JwtStrategy]
-const controllers = [AuthController, CaptchaController]
+const controllers = [AuthController, CaptchaController, AccountController]
 const config = Config()
 @Module({
   imports: [
@@ -38,7 +46,8 @@ const config = Config()
     }),
     UserModule,
     RoleModule,
-    LogModule
+    LogModule,
+    MenuModule
   ],
   controllers,
   providers: [...providers, ...strategies],

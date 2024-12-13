@@ -1,3 +1,9 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-25 18:32:45
+ * @LastEditTime: 2024-12-13 14:59:10
+ * @Description: loginLogEntity
+ */
 import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm'
 import { CommonEntity } from './base.entity'
 import { ApiProperty } from '@nestjs/swagger'

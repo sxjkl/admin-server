@@ -1,3 +1,9 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-26 10:40:52
+ * @LastEditTime: 2024-12-13 16:28:33
+ * @Description:
+ */
 import { RegisterDto } from '@auth/dto/token.model'
 import { ErrorEnum } from '@common/constants/error-code.constant'
 import { UserEntity } from '@entities/index'
@@ -8,6 +14,7 @@ import { md5 } from '@utils/crypto.util'
 import { randomValue } from '@utils/tool.util'
 import { isEmpty } from 'lodash'
 import { EntityManager, Repository } from 'typeorm'
+import { AccountInfo } from './user.model'
 
 @Injectable()
 export class UserService {
@@ -49,5 +56,18 @@ export class UserService {
 
       return user
     })
+  }
+  /**
+   * 获取用户信息
+   * @param uid user id
+   */
+  async getAccountInfo(uid: number): Promise<AccountInfo> {
+    const user: UserEntity = await this.userRepository.createQueryBuilder('user').leftJoinAndSelect('user.roles', 'role').where(`user.id = :uid`, { uid }).getOne()
+
+    if (isEmpty(user)) throw new SysException(ErrorEnum.USER_NOT_FOUND)
+
+    delete user?.pSalt
+
+    return user
   }
 }

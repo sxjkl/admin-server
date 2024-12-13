@@ -1,3 +1,9 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-25 18:20:24
+ * @LastEditTime: 2024-12-13 16:28:28
+ * @Description: userEntity
+ */
 import { Column, Entity, ManyToMany, OneToMany, Relation, JoinTable } from 'typeorm'
 import { CommonEntity } from './base.entity'
 import { Exclude } from 'class-transformer'
@@ -42,6 +48,9 @@ export class UserEntity extends CommonEntity {
 
   @Column({ name: 'p_salt', comment: '加密盐' })
   pSalt: string
+
+  @Column({ nullable: true })
+  remark: string
 
   @OneToMany(() => AccessTokenEntity, accessToken => accessToken.user, { cascade: true })
   accessTokens: Relation<AccessTokenEntity[]>

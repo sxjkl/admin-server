@@ -18,6 +18,9 @@ export type I18nTranslations = {
         "userNotLogin": string;
         "userInvalidLoginTokenExpire": string;
         "userExists": string;
+        "permissionRequiresParent": string;
+        "parentMenuNotFound": string;
+        "illegalOperationDirectoryParent": string;
         "userNoLogin": string;
     };
 };

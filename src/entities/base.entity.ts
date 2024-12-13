@@ -1,3 +1,9 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-25 17:44:35
+ * @LastEditTime: 2024-12-13 14:58:59
+ * @Description: baseEntity
+ */
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { Exclude } from 'class-transformer'
 import { BaseEntity, Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn, VirtualColumn } from 'typeorm'

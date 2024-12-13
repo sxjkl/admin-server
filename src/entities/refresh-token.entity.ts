@@ -1,3 +1,9 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-26 14:59:47
+ * @LastEditTime: 2024-12-13 15:00:04
+ * @Description: refreshTokenEntity
+ */
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { AccessTokenEntity } from '@entities/access-token.entity'
 

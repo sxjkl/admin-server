@@ -10,5 +10,8 @@
   "userInvalidLogin": "登录无效，请重新登录!",
   "userNoLogin": "未登录,请重新登录!",
   "userInvalidLoginTokenExpire": "登录凭证过期，请刷新凭证",
-  "userExists": "用户已存在"
+  "userExists": "用户已存在",
+  "permissionRequiresParent": "权限必须包含父节点",
+  "parentMenuNotFound": "父级菜单不存在",
+  "illegalOperationDirectoryParent": "非法操作：该节点仅支持目录类型父节点"
 }

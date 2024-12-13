@@ -24,5 +24,8 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "cSpell.words": ["antfu", "Cacheable", "commitlint", "fastify", "liaoliaots", "nestjs", "songkeys", "subpub", "systeminformation", "tinyint", "typeorm", "websockets"]
+  "cSpell.words": ["antfu", "Cacheable", "commitlint", "fastify", "INITPASSWORD", "liaoliaots", "nestjs", "songkeys", "subpub", "sxjkl", "systeminformation", "tinyint", "typeorm", "websockets"],
+  "fileheader.customMade": {
+    "Author": "git config user.name"
+  }
 }

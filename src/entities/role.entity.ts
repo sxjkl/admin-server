@@ -1,7 +1,15 @@
+/*
+ * @Author: sxjkl1009
+ * @Date: 2024-11-26 15:03:41
+ * @LastEditTime: 2024-12-13 14:59:57
+ * @Description: RoleEntity
+ */
+
 import { CommonEntity } from '@entities/base.entity'
-import { Column, Entity, ManyToMany, Relation } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, Relation } from 'typeorm'
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { UserEntity } from '@entities/user.entity'
+import { MenuEntity } from './menu.entity'
 
 @Entity({ name: 'sys_role' })
 export class RoleEntity extends CommonEntity {
@@ -28,4 +36,13 @@ export class RoleEntity extends CommonEntity {
   @ApiHideProperty()
   @ManyToMany(() => UserEntity, user => user.roles)
   users: Relation<UserEntity[]>
+
+  @ApiHideProperty()
+  @ManyToMany(() => MenuEntity, menu => menu.roles, {})
+  @JoinTable({
+    name: 'sys_role_menus',
+    joinColumn: { name: 'role_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'menu_id', referencedColumnName: 'id' }
+  })
+  menus: Relation<MenuEntity[]>
 }

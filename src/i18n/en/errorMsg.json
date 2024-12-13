@@ -10,5 +10,8 @@
   "userInvalidLogin": "Invalid login, please log in again!",
   "userNotLogin": "Not logged in, please log in again!",
   "userInvalidLoginTokenExpire": "Login credentials have expired, please refresh credentials",
-  "userExists": "User already exists"
+  "userExists": "User already exists",
+  "permissionRequiresParent": "The permission must include the parent node",
+  "parentMenuNotFound": "Parent menu not found",
+  "illegalOperationDirectoryParent": "Illegal operation：This node only supports directory type parent nodes"
 }
